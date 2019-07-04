@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 
+
 import { Tasks } from '../api/tasks.js';
 
 import './task.js';
@@ -29,13 +30,8 @@ Template.body.events({
     const target = event.target;
     const text = target.text.value;
    
-    Tasks.insert({
-      text,
-      createdAt: new Date(),
-      owner: Meteor.userId(),
-      username: Meteor.user().username,
-    });
-   
+    Meteor.call('tasks.insert', text);  
+ 
     target.text.value= '';
   },
   'change .hide-completed input'(event, instance) {
